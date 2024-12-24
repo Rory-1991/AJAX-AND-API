@@ -37,7 +37,6 @@
 </html>
 <script>
   getClasses();
-  query(101);
   /************************************
   * 1.考慮觸發行為的事件
   * 2.建立監聽行為
@@ -54,6 +53,8 @@
               <a class="nav-link" href="javascript:query(${item.classroom})">${item.classroom}</a>
              </li>`
         $("#classesList").append(c);
+        // console.log(data);
+        query(data)
       })
     })
   }
