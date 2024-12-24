@@ -37,7 +37,7 @@
 </html>
 <script>
   getClasses();
-
+  query(101);
   /************************************
   * 1.考慮觸發行為的事件
   * 2.建立監聽行為
@@ -106,8 +106,9 @@
     let chk = confirm('確定要刪除嗎？');
     if (chk) {
 
-      $.post('./api/delete.php', { id }, function () {
-        console.log('deleted');
+      $.post('./api/delete.php', { id, classroom }, function (res) {
+        // console.log('res');
+        query(res);
       })
     }
   }
