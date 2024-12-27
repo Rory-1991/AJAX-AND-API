@@ -34,7 +34,7 @@ $row=$Stu->find($_GET['id']);
           <label for="major" class="form-label">科系</label>
           <input type="text" name="major" class="form-control" id="major" value="<?=$row['major']?>">
       </div>
-      <input type="hidden" name="id" value="<?=$row['id']?>">
+      <input type="hidden" name="id" id='userId' value="<?=$row['id']?>">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="send">編輯</button>
@@ -52,14 +52,15 @@ $("#send").on("click",function(){
     'name':$("#name").val(),
     'classroom':$("#classroom").val(),
     'major':$("#major").val(),
-    'id':$("#id").val(),    
+    'id':$("#userId").val(),    
   }
   
 $.post("api/update.php",formData,function(){
     getClasses()
     alert("編輯完成")
-    CreateModal.hide();
-    CreateModal.dispose();
+    query(formData.classroom)
+    EditModal.hide();
+    EditModal.dispose();
     $("#modal").html("");
 })
   // console.log(formData);
