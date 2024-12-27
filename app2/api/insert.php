@@ -4,6 +4,6 @@ include_once "db.php";
 $Stu->save($_POST);
 
 
-to("../index.html");
+// to("../index.html");
 
 ?>
