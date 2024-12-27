@@ -1,11 +1,11 @@
-<?php include_once "./api/db.php";
+<?php include_once  "./api/db.php";
 
 $row=$Stu->find($_GET['id']);
 
 ?>
 
 <!-- Modal -->
-<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="EditModalLabel">
   <div class="modal-dialog">
     <div class="modal-content">
     <form action="#" method="post">
@@ -20,24 +20,24 @@ $row=$Stu->find($_GET['id']);
       </div>
       <div class="mb-3">
           <label for="seat_num" class="form-label">座號</label>
-          <input type="text" name="seat_num" class="form-control" id="seat_num" value="<?=$row['seat_num']?>">
+          <input type="text" name="seat_num" class="form-control" id="seat_num"  value="<?=$row['seat_num']?>">
       </div>
       <div class="mb-3">
           <label for="name" class="form-label">姓名</label>
-          <input type="text" name="name" class="form-control" id="name" value="<?=$row['name']?>">
+          <input type="text" name="name" class="form-control" id="name"  value="<?=$row['name']?>">
       </div>
       <div class="mb-3">
           <label for="classroom" class="form-label">班級</label>
-          <input type="text" name="classroom" class="form-control" id="classroom" value="<?=$row['classroom']?>">
+          <input type="text" name="classroom" class="form-control" id="classroom"  value="<?=$row['classroom']?>">
       </div>
       <div class="mb-3">
           <label for="major" class="form-label">科系</label>
-          <input type="text" name="major" class="form-control" id="major" value="<?=$row['major']?>">
+          <input type="text" name="major" class="form-control" id="major"  value="<?=$row['major']?>">
       </div>
       <input type="hidden" name="id" id='userId' value="<?=$row['id']?>">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="send">編輯</button>
+        <button type="button" class="btn btn-primary" id='send'>編輯</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
       </div>
     </form>
@@ -45,25 +45,31 @@ $row=$Stu->find($_GET['id']);
   </div>
 </div>
 <script>
+
 $("#send").on("click",function(){
-  let formData={
+   let formData={
     'uni_id':$("#uni_id").val(),
     'seat_num':$("#seat_num").val(),
     'name':$("#name").val(),
     'classroom':$("#classroom").val(),
     'major':$("#major").val(),
-    'id':$("#userId").val(),    
-  }
-  
-$.post("api/update.php",formData,function(){
-    getClasses()
-    alert("編輯完成")
-    query(formData.classroom)
-    EditModal.hide();
-    EditModal.dispose();
-    $("#modal").html("");
+    'id':$("#userId").val()
+   }
+   //console.log(formData)
+   $.post("api/update.php",formData,function(){
+      getClasses()
+      alert("編輯完成")
+      //console.log(formData.classroom)
+      EditModal.hide();
+      $("#EditModal").on("hidden.bs.modal",function(){
+        EditModal.dispose();
+        $("#modal").html("");
+        query(formData.classroom)
+      })
+
+   })
+   //console.log(formData);
 })
-  // console.log(formData);
-})
+
 
 </script>
